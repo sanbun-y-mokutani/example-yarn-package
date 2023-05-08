@@ -1,0 +1,66 @@
+name: Publish Package
+on:
+  push:
+    # only trigger on branches, not on tags
+    branches: '**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release:
+    runs-on: ubuntu-18.04
+    permissions: write-all
+    steps:
+      - name: 1. Checkout
+        uses: actions/checkout@v3
+
+      - name: 2. Setup node env
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@earthbrain'
+
+      - name: 4. Install dependencies
+        run: |
+          npm install --global yarn &&
+          yarn install
+
+      - name: 7. Publish
+        run: yarn run semantic-release
+        id: publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 8. Notify
+        id: slack
+        uses: slackapi/slack-github-action@v1.16.0
+        with:
+          payload: |
+            {
+              "text": "New Release was created",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "${{ vars.SLACK_NOTIFY_TO }} \n New Release was created on ${{ github.event.repository.name }} : <https://github.com/EARTHBRAIN/${{ github.event.repository.name }}/releases/tag/${{ steps.release.outputs.new-release-version }}|${{ steps.release.outputs.new-release-version }}>"
+                  }
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "NOTE: Mention setting is managed on repository variable: RELEASE_NOTIFY_TO"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+          SLACK_WEBHOOK_URL: ${{ secrets.RELEASE_NOTIFY_SLACK_WEBHOOK_URL }}

@@ -16,7 +16,9 @@
     "lodash": "^4.16.2"
   },
   "devDependencies": {
-    "jest-cli": "15.1.1"
+    "jest-cli": "15.1.1",
+    "semantic-release": "^21.0.2",
+    "semantic-release-export-data": "^1.0.1"
   },
   "jest": {
     "testEnvironment": "node"

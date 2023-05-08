@@ -1,0 +1,15 @@
+{
+  "branches": [
+    {
+      "name": "main"
+    },
+    {
+      "name": "develop",
+      "channel": "develop",
+      "prerelease": true
+    }
+  ],
+  "plugins": [
+    "semantic-release-export-data"
+  ]
+}
