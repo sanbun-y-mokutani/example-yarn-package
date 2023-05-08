@@ -15,6 +15,7 @@
   "dependencies": {
     "lodash": "^4.16.2"
   },
+  "private": true,
   "devDependencies": {
     "jest-cli": "15.1.1",
     "semantic-release": "^21.0.2",
