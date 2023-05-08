@@ -10,7 +10,7 @@ concurrency:
 
 jobs:
   release:
-    runs-on: ubuntu-18.04
+    runs-on: [self-hosted, small-mem2]
     permissions: write-all
     steps:
       - name: 1. Checkout
