@@ -47,7 +47,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "${{ vars.SLACK_NOTIFY_TO }} \n New Release was created on ${{ github.event.repository.name }} : <https://github.com/EARTHBRAIN/${{ github.event.repository.name }}/releases/tag/${{ steps.release.outputs.new-release-version }}|${{ steps.release.outputs.new-release-version }}>"
+                    "text": "${{ vars.SLACK_NOTIFY_TO }} \n New Release was created on ${{ github.event.repository.name }} : <https://github.com/EARTHBRAIN/${{ github.event.repository.name }}/releases/tag/${{ steps.publish.outputs.new-release-version }}|${{ steps.publish.outputs.new-release-version }}>"
                   }
                 },
                 {
