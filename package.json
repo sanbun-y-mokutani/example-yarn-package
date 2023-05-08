@@ -4,7 +4,7 @@
   "description": "An example package to demonstrate Yarn",
   "main": "index.js",
   "repository": {
-    "url": "github.com/yarnpkg/example-yarn-package",
+    "url": "github.com/sanbun-y-mokutani/example-yarn-package",
     "type": "git"
   },
   "scripts": {
