@@ -10,7 +10,7 @@ concurrency:
 
 jobs:
   release:
-    runs-on: [self-hosted, small-mem2]
+    runs-on: ubuntu-latest
     permissions: write-all
     steps:
       - name: 1. Checkout
